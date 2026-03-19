@@ -1,0 +1,25 @@
+name: Lint Code Base
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+        # This installs your express, cors, etc. on GitHub's server
+      run: npm install
+
+    - name: Run Linter
+        # This checks your code for errors
+      run: npx eslint .
+      
