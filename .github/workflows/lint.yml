@@ -1,6 +1,10 @@
 name: Lint Code Base
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -8,17 +12,17 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
-    - name: Install Node.js
-      uses: actions/setup-node@v3
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '20'
 
     - name: Install dependencies
-      # This ensures all necessary linting packages are installed on GitHub's server
-      run: npm install
+      # This flag is the secret to fixing the ERESOLVE error
+      run: npm install --legacy-peer-deps
 
     - name: Run ESLint
-      # Added the specific config flag to help GitHub find your file
+      # We tell it to use your specific config file
       run: npx eslint . --config eslint.config.mjs
