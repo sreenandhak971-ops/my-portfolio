@@ -16,10 +16,9 @@ jobs:
         node-version: '18'
 
     - name: Install dependencies
-        # This installs your express, cors, etc. on GitHub's server
+      # This ensures all necessary linting packages are installed on GitHub's server
       run: npm install
 
-    - name: Run Linter
-        # This checks your code for errors
-      run: npx eslint .
-      
+    - name: Run ESLint
+      # Added the specific config flag to help GitHub find your file
+      run: npx eslint . --config eslint.config.mjs
